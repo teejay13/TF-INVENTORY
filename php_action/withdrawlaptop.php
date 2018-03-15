@@ -13,7 +13,7 @@
 	    if ($result == 'true') {
 	    	$updatelaptopquery = "UPDATE `laptop_tbl` SET `status`='1',`updated_by`='Teachers Fund',`updated_at`='$updated_at' WHERE `tf_id` = '$tf_id'";
 	    	$updatelaptopresult = $conn->query($updatelaptopquery);
-	    	echo json_encode($updatelaptopresult);
+	    	echo json_encode(array('error'=>'false'));
 	    }
 	    
 	    
