@@ -281,12 +281,16 @@
 			if ($result) {
 				while ($data = mysqli_fetch_assoc($result)) {
 
+					
+
 					if ($data['toner_stock'] <= $data['re-order-lvl']) {
-						$status = '<span style="font-size: 18px" class="badge badge-danger">'.$data['re-order-lvl'].'</span>';
+						$status = '<span style="font-size: 18px padding-right: 80px "  class="badge badge-danger">'.$data['re-order-lvl'].'</span>';
 					}else {
-						$status= '<span style="font-size: 18px" class="badge badge-success">'.$data['re-order-lvl'].'</span>';
+						$status= '<span style="font-size: 18px ;  padding-right: 80px; " class="badge badge-success">'.$data['re-order-lvl'].'</span>';
 					}
-						$option ='<a href="./deletetoner.php?id='.$data['id'].'" class="editor_remove">Delete</a>';
+						$option ='<a href="./deletetoner.php?id='.$data['id'].'" class="editor_remove">Delete</a> || 
+						<a href="#" class="editor_edit" data-toggle="modal" data-target="#issuetonerout">Issue</a> ||
+						<a href="#" class="editor_edit" data-toggle="modal" data-target="#viewissuedreportmodal" data-whatever="'.$data['id'].'" >View Report</a>';
 
 					printf('
 							<tr>
@@ -313,6 +317,31 @@
 			return $result;
 		}
 
+
+
+		function issuetoner($toner_id,$printer_id,$name,$time_giving,$conn){
+
+			$created_at = date('Y-m-d H:i:s');
+
+			$query = "INSERT INTO `issue_toner`(`toner_id`, `printer_id`, `fullname`, `time_giving`, `created_at`) VALUES ('$toner_id','$printer_id','$name','$time_giving','$created_at')";
+			
+
+			$result = $conn->query($query);
+
+			if($result){
+				$query1 ="SELECT * from toner_tbl where id = $toner_id";
+				$result1 = $conn->query($query1);
+				$data1 = mysqli_fetch_assoc($result1);
+				$totalstock = $data1['toner_stock'] - 1;
+
+				$updated_at  = date('Y-m-d H:i:s');
+				$query2 ="UPDATE `toner_tbl` SET `toner_stock`='$totalstock',`updated_at`='$updated_at' WHERE `id` = $toner_id";
+				$result1 = $conn->query($query2);
+			}
+
+			return $result;
+
+		}
 
 
 

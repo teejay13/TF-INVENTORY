@@ -133,11 +133,7 @@ $(document).ready(function () {
 			}
 		});
 	});
-
-
-
-
-
+	
 
 
 	$('#issuelaptopform').on('submit', function (event) {
@@ -192,6 +188,26 @@ $(document).ready(function () {
 			}
 		});
 	});
+
+
+	$('#viewissuedreportmodal').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget) // Button that triggered the modal
+		var id = button.data('whatever')
+		var url = './php_action/gettoner_id.php' + '?id=' +id
+		var modal = $(this);
+
+		$.ajax({
+			url: url,
+			dataType: 'json',
+			type: 'GET',
+			success: function(data) {
+				$('#viewissuedreportmodal').modal('show');
+				$('#issuedtoners').html(data)
+			}
+		});
+	});
+
+
 
 
 

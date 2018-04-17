@@ -61,6 +61,9 @@
 
 
   $gettonerselect = $teachersfund->getallToner($conn);
+  $gettonerselect1 = $teachersfund->getallToner($conn);
+
+  $getprinterselect = $teachersfund->getallPrinter($conn);
 
   $getsupplierselect = $teachersfund->getallSupplier($conn);
 
@@ -106,6 +109,31 @@
     else { ?>
     <script>
           alert('Toner not added');
+    </script>
+    <?php
+    }
+
+  }
+
+
+  if (isset($_POST['issuetonersubmit'])&&isset($_POST['toner_id'])&&isset($_POST['printer_id'])&&isset($_POST['name'])) {
+      
+    $toner_id = $_POST['toner_id'];
+    $printer_id = $_POST['printer_id'];
+    $name = $_POST['name'];
+    $time_giving = $_POST['time_giving'];
+
+    $issuetonerresult = $teachersfund->issuetoner($toner_id,$printer_id,$name,$time_giving,$conn);
+
+    if ($issuetonerresult) { ?>
+    <script>
+          alert('Toner Issued');
+    </script>
+     <?php 
+    }
+    else { ?>
+    <script>
+          alert('Toner not Issued');
     </script>
     <?php
     }

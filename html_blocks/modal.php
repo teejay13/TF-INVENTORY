@@ -422,10 +422,10 @@
       <div class="modal-body modal-md">
             <div class="row">
               <div class="col-md-6 mb-3">
-                <label for="validationDefault01">Printer</label>
+                <label for="validationDefault01">Toner</label>
                 <select class="form-control" name="toner_id">
                 <?php
-                  while ($row = mysqli_fetch_assoc($gettonerselect)){ ?>
+                  while ($row = mysqli_fetch_assoc($gettonerselect1)){ ?>
 
                   <option value="<?php echo $row ['id'] ?>"><?php echo $row ['toner_name'] ?></option>
                 <?php
@@ -491,7 +491,7 @@
               <div class="col-md-6 mb-3">
                 <label for="validationDefault01">Re Order-level</label>
                 <input type="number" class="form-control" name="re-order-lvl" id="validationDefault01" placeholder="Re Order level" value="" required>
-
+              </div>
             </div>
       </div>
       <div class="modal-footer">
@@ -502,4 +502,119 @@
     </div>
   </div>
 </div>
+
+
+<!-- ISSUE PRINTER STOCK MODAL
+ -->
+
+ <div class="modal fade bd-example-modal-lg" id="issuetonerout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Issue Out Toner</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="POST" action="">
+      <div class="modal-body modal-md">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="validationDefault01">Toner id</label>
+                <select class="form-control" name="toner_id">
+                <?php
+                  while ($row = mysqli_fetch_assoc($gettonerselect)){ ?>
+
+                  <option value="<?php echo $row ['id'] ?>"><?php echo $row ['toner_name'] ?></option>
+                <?php
+                  }
+                ?>
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="validationDefault01">Printer Nickname</label>
+                <select class="form-control" name="printer_id">
+                <?php
+                  while ($row = mysqli_fetch_assoc($getprinterselect)){ ?>
+
+                  <option value="<?php echo $row ['printer_id'] ?>"><?php echo $row ['printer_nickname'] ?></option>
+                <?php
+                  }
+                ?>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="validationDefault01">Name</label>
+                <input type="text" class="form-control" name="name" id="validationDefault01" placeholder="Full Name" value="" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                  <label for="validationDefault02">Time Giving</label>
+                  <input type="text" class="form-control" name="time_giving" id="validationDefault02" placeholder="" value="<?php echo date('Y-m-d H:i:s'); ?>"  readonly required>
+                </div>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button  class="btn btn-primary" type="submit" name="issuetonersubmit">Save changes</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- VIEW ALL ISSUED TONERS
+ -->
+
+ <div class="modal fade bd-example-modal-lg" id="viewissuedreportmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Toner Issued Out</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa fa-table"></i> Toner Issued Out</div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered"  width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>PRINTER NAME</th>
+                  <th>Full NAME</th>
+                  <th>TIME GIVING</th>
+                </tr>
+              </thead>
+              <tbody id="issuedtoners">
+                  
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>PRINTER NAME</th>
+                  <th>Full NAME</th>
+                  <th>TIME GIVING</th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+        <div class="card-footer small text-muted">Updated at <?php  ?></div>
+      </div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 
