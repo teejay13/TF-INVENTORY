@@ -10,6 +10,8 @@
 
   $teachersfund = new TeachersFund();
 
+  $laptop = 'laptop';
+
   if (isset($_POST['submit'])&&isset($_POST['tf_id'])&&isset($_POST['brand'])&&isset($_POST['model'])&&isset($_POST['service_tag'])&&isset($_POST['mac_address'])) {
       
       $tf_id = $_POST['tf_id'];

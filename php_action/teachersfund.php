@@ -7,17 +7,64 @@
 	*/
 	class TeachersFund
 	{
+		
 		public function generatelaptopid($conn){
-			$query = "SELECT * FROM `laptop_tbl`";
-			$result = $conn->query($query);
-			$get_table_status = mysqli_num_rows($result);
-			$get_last_id = number_format(($get_table_status + 1) / 10000,4);
-			$number = explode('.', $get_last_id);
-
-			$id_generated = "TF".$number[1];
-
+			$query = "SELECT tcount FROM `counter_tbl` where `Dtype` = 'laptop'";
+			$counterresult = $conn->query($query);
+			$row = mysqli_fetch_assoc($counterresult);
+			if(strlen($row['tcount']) == 1)
+			$id_generated = "TF/IT/LPL/00" .$row['tcount'];
+			else if(strlen($row['tcount']) == 2)
+			$id_generated = "TF/IT/LPL/0" .$row['tcount'];
+			else 
+			$id_generated = "TF/IT/LPL/" .$row['tcount'];
 			return $id_generated;
+			
 		}
+
+		public function generateprinterid($conn){
+			$query = "SELECT tcount FROM `counter_tbl` where `Dtype` = 'printer'";
+			$counterresult = $conn->query($query);
+			$row = mysqli_fetch_assoc($counterresult);
+			if(strlen($row['tcount']) == 1)
+			$id_generated = "TF/IT/PRT/00" .$row['tcount'];
+			else if(strlen($row['tcount']) == 2)
+			$id_generated = "TF/IT/PRT/0" .$row['tcount'];
+			else 
+			$id_generated = "TF/IT/PRT/" .$row['tcount'];
+			return $id_generated;
+			
+		}
+
+		public function generatesupplyid($conn){
+			$query = "SELECT tcount FROM `counter_tbl` where `Dtype` = 'supply'";
+			$counterresult = $conn->query($query);
+			$row = mysqli_fetch_assoc($counterresult);
+			if(strlen($row['tcount']) == 1)
+			$id_generated = "TF/IT/SUP/00" .$row['tcount'];
+			else if(strlen($row['tcount']) == 2)
+			$id_generated = "TF/IT/SUP/0" .$row['tcount'];
+			else 
+			$id_generated = "TF/IT/SUP/" .$row['tcount'];
+			return $id_generated;
+			
+		}
+
+		public function generatetonerid($conn){
+			$query = "SELECT tcount FROM `counter_tbl` where `Dtype` = 'toner'";
+			$counterresult = $conn->query($query);
+			$row = mysqli_fetch_assoc($counterresult);
+			if(strlen($row['tcount']) == 1)
+			$id_generated = "TF/IT/TN/00" .$row['tcount'];
+			else if(strlen($row['tcount']) == 2)
+			$id_generated = "TF/IT/TN/0" .$row['tcount'];
+			else 
+			$id_generated = "TF/IT/TN/" .$row['tcount'];
+			return $id_generated;
+			
+		}
+
+		
 
 		public function getallaptops($conn){
 			$query = "SELECT * FROM `laptop_tbl`";
@@ -27,7 +74,7 @@
 					if ($data['status'] == '2') {
 						$status = '<span style="font-size: 18px" class="badge badge-secondary">Engaged</span>';
 						$option ='<a href="#" class="editor_edit" data-toggle="modal" data-target="#editLaptopModal" data-whatever="'.$data['tf_id'].'">Edit</a> | <a href="./deletelaptop.php?tf_id='.$data['tf_id'].'" class="editor_remove">Delete</a> | <a href="#" class="editor_edit" data-toggle="modal" data-target="#withdrawLaptopModal" data-whatever="'.$data['tf_id'].'">Withdraw</a>';
-					}else if ($data['status']== '1') {
+					}else if ($data['status'] == '1') {
 						$status= '<span style="font-size: 18px" class="badge badge-success">Available</span>';
 						$option ='<a href="#" class="editor_edit" data-toggle="modal" data-target="#editLaptopModal" 
 							data-whatever="'.$data['tf_id'].'" >Edit</a> | <a href="./deletelaptop.php?tf_id='.$data['tf_id'].'" class="editor_remove">Delete</a> | <a href="#" class="editor_edit" data-toggle="modal" data-target="#issueLaptopModal" data-whatever="'.$data['tf_id'].'">Issue</a>';
@@ -53,9 +100,21 @@
 			$created_at = date('Y-m-d H:i:s');
 			$status = '1';
 
-			$query = "INSERT INTO `laptop_tbl`(`tf_id`, `brand`, `model`, `service_tag`, `mac_address`,`status`, `created_by`, `created_at`) VALUES ('$tf_id','$brand','$model','$service_tag','$mac_address','$status','$created_by','$created_at')";
+			$query = "INSERT INTO `laptop_tbl`(`tf_id`, `brand`, `model`, `service_tag`, `mac_address`,`status`, `created_by`, `created_at`)
+			VALUES ('$tf_id','$brand','$model','$service_tag','$mac_address','$status','$created_by','$created_at')";
 			
 			$result = $conn->query($query);
+
+			if($result){
+				$query1 ="SELECT tcount FROM `counter_tbl` where `Dtype` = 'laptop'";
+				$result1 = $conn->query($query1);
+				$data1 = mysqli_fetch_assoc($result1);
+				$updatecount = $data1['tcount'] + 1;
+
+
+				$query2 ="UPDATE `counter_tbl` SET `tcount`=$updatecount WHERE `Dtype` = 'laptop'";
+				$result2 = $conn->query($query2);
+			}
 
 			return $result;
 
@@ -123,6 +182,17 @@
 			
 			$result = $conn->query($query);
 
+			if($result){
+				$query1 ="SELECT tcount FROM `counter_tbl` where `Dtype` = 'printer'";
+				$result1 = $conn->query($query1);
+				$data1 = mysqli_fetch_assoc($result1);
+				$updatecount = $data1['tcount'] + 1;
+
+
+				$query2 ="UPDATE `counter_tbl` SET `tcount`=$updatecount WHERE `Dtype` = 'printer'";
+				$result2 = $conn->query($query2);
+			}
+
 			return $result;
 
 		}
@@ -172,6 +242,17 @@
 			$query = "INSERT INTO `printersupply_tbl`(`supply_id`, `supplier_name`, `supplier_address`, `created_at`) VALUES ('$supply_id','$supplier_name','$supplier_address','$created_at')";
 			
 			$result = $conn->query($query);
+
+			if($result){
+				$query1 ="SELECT tcount FROM `counter_tbl` where `Dtype` = 'supply'";
+				$result1 = $conn->query($query1);
+				$data1 = mysqli_fetch_assoc($result1);
+				$updatecount = $data1['tcount'] + 1;
+
+
+				$query2 ="UPDATE `counter_tbl` SET `tcount`=$updatecount WHERE `Dtype` = 'supply'";
+				$result2 = $conn->query($query2);
+			}
 
 			return $result;
 
@@ -271,6 +352,17 @@
 			
 			$result = $conn->query($query);
 
+			if($result){
+				$query1 ="SELECT tcount FROM `counter_tbl` where `Dtype` = 'toner'";
+				$result1 = $conn->query($query1);
+				$data1 = mysqli_fetch_assoc($result1);
+				$updatecount = $data1['tcount'] + 1;
+
+
+				$query2 ="UPDATE `counter_tbl` SET `tcount`=$updatecount WHERE `Dtype` = 'toner'";
+				$result2 = $conn->query($query2);
+			}
+
 			return $result;
 
 		}
@@ -323,7 +415,8 @@
 
 			$created_at = date('Y-m-d H:i:s');
 
-			$query = "INSERT INTO `issue_toner`(`toner_id`, `printer_id`, `fullname`, `time_giving`, `created_at`) VALUES ('$toner_id','$printer_id','$name','$time_giving','$created_at')";
+			$query = "INSERT INTO `issue_toner`(`toner_id`, `printer_id`, `fullname`, `time_giving`, `created_at`)
+			VALUES ('$toner_id','$printer_id','$name','$time_giving','$created_at')";
 			
 
 			$result = $conn->query($query);

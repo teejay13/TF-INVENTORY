@@ -14,17 +14,19 @@
       <form method="POST" action="">
       <div class="modal-body">
             <div class="row">
-              <div class="col-md-4 mb-3">
+              <div class="col-md-6 mb-3">
                 <label for="validationDefault01">TF id</label>
                 <input type="text" class="form-control" name="tf_id" id="validationDefault01"  value="<?php echo $teachersfund->generatelaptopid($conn); ?>" required readonly>
               </div>
-              <div class="col-md-4 mb-3">
+              <div class="col-md-6 mb-3">
                 <label for="validationDefault01">Brand</label>
                 <input type="text" class="form-control" name="brand" id="validationDefault01" placeholder="Brand" value="" required>
               </div>
-              <div class="col-md-4 mb-3">
-                <label for="validationDefault02">Model</label>
-                <input type="text" class="form-control" name="model" id="validationDefault02" placeholder="Model" value="" required>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                  <label for="validationDefault02">Model</label>
+                  <input type="text" class="form-control" name="model" id="validationDefault02" placeholder="Model" value="" required>
               </div>
             </div>
             <div class="row">
@@ -219,21 +221,23 @@
       <form method="POST" action="">
       <div class="modal-body">
             <div class="row">
-              <div class="col-md-4 mb-3">
+              <div class="col-md-6 mb-3">
                 <label for="validationDefault01">TF id</label>
-                <input type="text" class="form-control" name="tf_id" id="tf_id_printer"  value="" required readonly>
+                <input type="text" class="form-control" name="tf_id" id="tf_id_printer"  value="<?php echo $teachersfund->generateprinterid($conn) ?>" required readonly>
               </div>
-              <div class="col-md-4 mb-3">
+              <div class="col-md-6 mb-3">
                 <label for="validationDefault01">Printer Name</label>
                 <input type="text" class="form-control" name="printer_name" id="validationDefault01"  value="" required>
               </div>
-              <div class="col-md-4 mb-3">
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
                 <label for="validationDefault01">Printer Nickname</label>
                 <input type="text" class="form-control" name="printer_nickname" id="validationDefault01" placeholder="Brand" value="" required>
               </div>
             </div>
             <div class="row">
-              <div class="col-md-4 mb-3">
+              <div class="col-md-6 mb-3">
                 <label for="validationDefault02">Printer Model</label>
                 <input type="text" class="form-control" name="printer_model" id="validationDefault02" placeholder="Model" value="" required>
               </div>
@@ -330,7 +334,7 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="validationDefault01">Supply id</label>
-                <input type="text" class="form-control" name="supply_id" id="supply_id"  value="" required readonly>
+                <input type="text" class="form-control" name="supply_id" id="supply_id"  value="<?php echo $teachersfund->generatesupplyid($conn) ?>" required readonly>
               </div>
               <div class="col-md-6 mb-3">
                 <label for="validationDefault01">  Name</label>
@@ -480,7 +484,7 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="validationDefault01">Toner id</label>
-                <input type="text" class="form-control" name="toner_id" id="toner_id"  value="" required readonly>
+                <input type="text" class="form-control" name="toner_id" id="toner_id"  value="<?php echo $teachersfund->generatetonerid($conn); ?>" required readonly>
               </div>
               <div class="col-md-6 mb-3">
                 <label for="validationDefault01">  Name</label>
