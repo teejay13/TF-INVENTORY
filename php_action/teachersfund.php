@@ -178,7 +178,7 @@
 
 			$created_at = date('Y-m-d H:i:s');
 
-			$query = "INSERT INTO `printer_tbl`(`printer_id`,`tf_id`,`printer_name`, `printer_nickname`, `printer_model`, `printer_type`, `created_at`) VALUES ('','$printer_id','$printer_name','$printer_name','$printer_model','$printer_type','$created_at')";
+			$query = "INSERT INTO `printer_tbl`(`printer_id`,`tf_id`,`printer_name`, `printer_nickname`, `printer_model`, `printer_type`, `created_at`) VALUES ('','$printer_id','$printer_name','$printer_nickname','$printer_model','$printer_type','$created_at')";
 			
 			$result = $conn->query($query);
 

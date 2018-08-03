@@ -23,14 +23,15 @@
       $addlaptopresult = $teachersfund->addlaptop($tf_id,$brand,$model,$service_tag,$mac_address,$conn);
 
       if ($addlaptopresult) { ?>
-      <script>
-            alert('Laptop Added');
+      <script type="text/javascript">
+            var tf_id= '<?php echo $tf_id ?>';
+            toastr.success('Laptop with id '+tf_id+ ' added sucessfully ', 'Success', {timeOut: 5000})
       </script>
        <?php 
       }
       else { ?>
       <script>
-            alert('Laptop not added');
+            toastr.error('You Got Error', 'Inconceivable!', {timeOut: 5000})
       </script>
       <?php
       }
